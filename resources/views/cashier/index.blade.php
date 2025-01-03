@@ -95,9 +95,48 @@ Dashboard
                         </div>
 
                         <div class="card-body">
-                            <h6 class="card-title">Special title treatment</h6>
+                            <!-- ============================ START LIST PRODUCT ==================================== -->
+                            <div class="alert alert-secondary mb-2" role="alert">
+                                <div class="row col-12">
+                                    <div class="col-8">
+                                        <span><img src="{{ asset('assets/img/ex-product/burger.png') }}" width="35px"></span>
+                                        Burger Bandel
+                                    </div>
 
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="text-center">
+                                                <button class="btn btn-sm btn-success" id="btn-minus">-</button>
+                                                <span id="counter">1</span>
+                                                <button class="btn btn-sm btn-success" id="btn-plus">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="alert alert-secondary mb-2" role="alert">
+                                <div class="row col-12">
+                                    <div class="col-8">
+                                        <span><img src="{{ asset('assets/img/ex-product/french-fries.png') }}" width="35px"></span>
+                                        Kentang Kentunk
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="text-center">
+                                                <button class="btn btn-sm btn-success" id="btn-minus">-</button>
+                                                <span id="counter">1</span>
+                                                <button class="btn btn-sm btn-success" id="btn-plus">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================ END LIST PRODUCT ==================================== -->
+
 
                             <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
                                 <label class="btn btn-default text-center">
@@ -137,6 +176,7 @@ Dashboard
 @section('pagescript')
 
 @section('pagescript')
+
 <script>
     let app = new Vue({
         el: '#app',
@@ -147,5 +187,29 @@ Dashboard
 
         }
     })
+</script>
+
+<script>
+    const min = 1;
+    const max = 10;
+    const counter = document.getElementById('counter');
+    const btnMinus = document.getElementById('btn-minus');
+    const btnPlus = document.getElementById('btn-plus');
+
+    btnMinus.addEventListener('click', () => {
+        let count = parseInt(counter.textContent);
+        if (count > min) {
+            count--;
+        }
+        counter.textContent = count;
+    });
+
+    btnPlus.addEventListener('click', () => {
+        let count = parseInt(counter.textContent);
+        if (count < max) {
+            count++;
+        }
+        counter.textContent = count;
+    });
 </script>
 @endsection
