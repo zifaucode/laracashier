@@ -29,7 +29,7 @@ Dashboard
             <div class="row">
                 <div class="col-lg-8">
 
-                    <div class="card card-primary card-outline">
+                    <div class="card card-success card-outline">
 
                         <div class="card-header">
                             <h5 class="card-title m-0">Search Product</h5>
@@ -41,11 +41,11 @@ Dashboard
                             <div class="row">
                                 <div class="col-md-4 col-sm-6 col-12">
                                     <div class="info-box">
-                                        <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+                                        <span class="info-box-icon bg-success"><img src="{{ asset('assets/img/ex-product/burger.png') }}"> </span>
 
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Bookmarks</span>
-                                            <span class="info-box-number">410</span>
+                                            <span class="info-box-text">Burger Bandel</span>
+                                            <span class="info-box-number">Rp. 40.000</span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -54,11 +54,11 @@ Dashboard
                                 <!-- /.col -->
                                 <div class="col-md-4 col-sm-6 col-12">
                                     <div class="info-box">
-                                        <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+                                        <span class="info-box-icon bg-success"><img src="{{ asset('assets/img/ex-product/french-fries.png') }}"></span>
 
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Bookmarks</span>
-                                            <span class="info-box-number">410</span>
+                                            <span class="info-box-text">Kentang Kentunk</span>
+                                            <span class="info-box-number">Rp. 15.000</span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -67,11 +67,11 @@ Dashboard
                                 <!-- /.col -->
                                 <div class="col-md-4 col-sm-6 col-12">
                                     <div class="info-box">
-                                        <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+                                        <span class="info-box-icon bg-success"><img src="{{ asset('assets/img/ex-product/ramen.png') }}"></span>
 
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Bookmarks</span>
-                                            <span class="info-box-number">410</span>
+                                            <span class="info-box-text">Ramen Mereun</span>
+                                            <span class="info-box-number">Rp. 28.000</span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -89,7 +89,7 @@ Dashboard
                 <div class="col-lg-4">
 
 
-                    <div class="card card-primary card-outline">
+                    <div class="card card-success card-outline">
                         <div class="card-header">
                             <h5 class="card-title m-0">Order Number : #2314412</h5>
                         </div>
@@ -120,7 +120,7 @@ Dashboard
                                 </label>
 
                             </div>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="#" class="btn btn-success"><i class="nav-icon fas fa-shopping-basket"></i> ADD TO CHART</a>
                         </div>
                     </div>
                 </div>
