@@ -4,6 +4,7 @@ use App\Http\Controllers\web\AdminController;
 use App\Http\Controllers\web\AuthController;
 use App\Http\Controllers\web\DashboardCashierController;
 use App\Http\Controllers\web\LoginController;
+use App\Http\Controllers\web\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,9 +36,14 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 */
 
 Route::group(['middleware' => 'admin'], function () {
+    Route::prefix('/admin')->group(function () {
+        Route::controller(AdminController::class)->prefix('/dashboard')->group(function () {
+            Route::get('/', 'index')->name('dashboard');
+        });
 
-    Route::controller(AdminController::class)->prefix('/dashboard')->group(function () {
-        Route::get('/', 'index')->name('dashboard');
+        Route::controller(ProductController::class)->prefix('/product')->group(function () {
+            Route::get('/', 'index')->name('product.index');
+        });
     });
 });
 
