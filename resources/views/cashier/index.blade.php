@@ -6,7 +6,19 @@ Dashboard
 
 @section('head')
 
+<style>
+    .frame-image {
+        border: 2px solid #64cc61;
+        padding: 8px;
+        float: center;
+    }
 
+    .frame-image img {
+        display: block;
+        margin-bottom: 4px;
+        width: 30px;
+    }
+</style>
 
 @endsection
 
@@ -98,12 +110,21 @@ Dashboard
                             <!-- ============================ START LIST PRODUCT ==================================== -->
                             <div class="alert alert-secondary mb-2" role="alert">
                                 <div class="row col-12">
-                                    <div class="col-8">
-                                        <span><img src="{{ asset('assets/img/ex-product/burger.png') }}" width="35px"></span>
-                                        Burger Bandel
+                                    <div class="col-3">
+                                        <span>
+                                            <div class="frame-image">
+                                                <!-- <img :src="`/file/image/` + candidate.image" width="220px" height="360px" alt="Example Photo"> -->
+                                                <img src="{{ asset('assets/img/ex-product/burger.png') }}">
+                                            </div>
+                                            <!-- <img src="{{ asset('assets/img/ex-product/burger.png') }}" width="35px"> -->
+                                        </span>
+
+                                    </div>
+                                    <div class="col-6" style="padding: 9px;">
+                                        <span>Burger Bandel</span>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-3" style="padding: 9px;">
                                         <div class="row">
                                             <div class="text-center">
                                                 <button class="btn btn-sm btn-success" id="btn-minus">-</button>
@@ -119,12 +140,21 @@ Dashboard
 
                             <div class="alert alert-secondary mb-2" role="alert">
                                 <div class="row col-12">
-                                    <div class="col-8">
-                                        <span><img src="{{ asset('assets/img/ex-product/french-fries.png') }}" width="35px"></span>
-                                        Kentang Kentunk
+                                    <div class="col-3">
+                                        <span>
+                                            <div class="frame-image">
+                                                <img src="{{ asset('assets/img/ex-product/french-fries.png') }}">
+                                            </div>
+
+                                        </span>
+
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-6" style="padding: 9px;">
+                                        <span> Kentang Kentunk</span>
+                                    </div>
+
+                                    <div class="col-3" style="padding: 9px;">
                                         <div class="row">
                                             <div class="text-center">
                                                 <button class="btn btn-sm btn-success" id="btn-minus">-</button>
