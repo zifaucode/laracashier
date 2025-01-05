@@ -4,6 +4,7 @@ use App\Http\Controllers\web\AdminController;
 use App\Http\Controllers\web\AuthController;
 use App\Http\Controllers\web\DashboardCashierController;
 use App\Http\Controllers\web\LoginController;
+use App\Http\Controllers\web\ProductCategoryController;
 use App\Http\Controllers\web\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,14 @@ Route::group(['middleware' => 'admin'], function () {
 
         Route::controller(ProductController::class)->prefix('/product')->group(function () {
             Route::get('/', 'index')->name('product.index');
+            Route::get('/create', 'create')->name('product.create');
+        });
+
+        Route::controller(ProductCategoryController::class)->prefix('/product-category')->group(function () {
+            Route::get('/', 'index')->name('product-category.index');
+            Route::post('/', 'store')->name('product-category.store');
+            Route::delete('/{id}', 'destroy')->name('product-category.delete');
+            Route::post('/edit/{id}', 'update')->name('product-category.update');
         });
     });
 });
