@@ -62,15 +62,17 @@ Dashboard
                                     </thead>
                                     <tbody>
 
+                                        <!-- <tr v-for="(product ,index) in products"> -->
+                                        @foreach($product as $products)
                                         <tr>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
+                                            <td>1</td>
+                                            <td><img src="/file/product-image/{{ $products->product_image }}" alt="" width="60px"></td>
+                                            <td>{{ $products->name ?? 'PRODUCT NAME' }}</td>
+                                            <td>{{ $products->category->name ?? 'CATEGORY NAME' }}</td>
+                                            <td>{{ $products->stock ?? 0 }}</td>
+                                            <td>{{ $products->unit_price ?? 0 }}</td>
+                                            <td>0</td>
+                                            <td>{!! DNS1D::getBarcodeSVG("-131452535", 'PHARMA',2,50) !!}</td>
                                             <td>
                                                 <a href="#" class="btn btn-danger" title="Delete">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -80,6 +82,7 @@ Dashboard
                                                 </a>
                                             </td>
                                         </tr>
+                                        @endforeach
 
                                     </tbody>
 
@@ -102,9 +105,11 @@ Dashboard
 
 @section('pagescript')
 <script>
+    const products = <?php echo Illuminate\Support\Js::from($product) ?>;
     let app = new Vue({
         el: '#app',
         data: {
+            products,
 
         },
         methods: {

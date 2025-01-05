@@ -38,45 +38,62 @@ Dashboard
             <div class="row">
 
                 <div class="col-lg-12">
-                    <div class="card card-success card-outline">
-                        <div class="card-header" style="text-align: right;">
-                            <a href="#" class="btn btn-success">Tambah Product</a>
+
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title"></h3>
                         </div>
-                        <div class="card-body">
 
-                            <div class="table-responsive">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>No </th>
-                                            <th>Nama </th>
-                                            <th>Total items </th>
-                                            <th style="width: 50px; text-align:center;">Action </th>
+                        <form class="form" @submit.prevent="submitForm">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="productNameInput">Name</label>
+                                    <input type="text" class="form-control" v-model="name" id="productNameInput" placeholder="Product Name">
+                                </div>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select name="" id="" class="form-control" v-model="categoryId">
+                                        <option value="">- CATEGORY</option>
+                                        <option v-for="categories in category" :value="categories.id">@{{ categories.name }}</option>
+                                    </select>
+                                </div>
 
-                                        <tr>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>
-                                                <a href="#" class="btn btn-danger" title="Delete">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                                                    </svg>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                <div class="form-group">
+                                    <label for="stockInput">Stock</label>
+                                    <input type="text" class="form-control" v-model="stock" id="stockInput" placeholder="Stock">
+                                </div>
 
-                                    </tbody>
+                                <div class="form-group">
+                                    <label for="unitPriceInput">Unit Price</label>
+                                    <input type="text" class="form-control" v-model="unitPrice" id="unitPriceInput" placeholder="Unit Price">
+                                </div>
 
-                                </table>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Product Image</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" ref="product_image" class="custom-file-input" accept=".jpeg, .png, .jpg" v-on:change="handleFileUpload" id="exampleInputFile">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div v-if="product_image">
+                                        Product Image selected : <span class="badge badge-success">@{{ product_image.name }}</span>
+                                    </div>
+
+                                </div>
+
                             </div>
-                        </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer" style="text-align: right;">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </form>
                     </div>
+                    <!-- /.card -->
                 </div>
 
             </div>
@@ -92,13 +109,76 @@ Dashboard
 
 @section('pagescript')
 <script>
+    const category = <?php echo Illuminate\Support\Js::from($category) ?>;
     let app = new Vue({
         el: '#app',
         data: {
+            category,
+            name: '',
+            stock: '',
+            categoryId: '',
+            unitPrice: '',
+            product_image: '',
 
+            loading: false,
         },
         methods: {
+            handleFileUpload() {
+                this.product_image = this.$refs.product_image.files[0];
+                if (!this.product_image) {
+                    return;
+                }
+                if (!this.isValidFileType(this.product_image)) {
+                    return;
+                }
+            },
+            isValidFileType(product_image) {
+                const allowedExtensions = ['.jpeg', '.png', '.jpg'];
+                return allowedExtensions.includes(product_image.name.split('.').pop().toLowerCase());
+            },
+            submitForm: function() {
+                this.sendData();
+            },
+            sendData: function() {
+                let vm = this;
+                let data = {
+                    image: vm.product_image,
+                    image_name: vm.product_image['name'],
 
+                    name: vm.name,
+                    stock: vm.stock,
+                    category_id: vm.categoryId,
+                    unit_price: vm.unitPrice,
+                }
+                let formData = new FormData();
+                for (var key in data) {
+                    formData.append(key, data[key]);
+                }
+                axios.post('/admin/product', formData)
+                    .then(function(response) {
+                        vm.loading = false;
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'Data Has Been Save.',
+                            icon: 'success',
+                            allowOutsideClick: false,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/admin/product';
+                            }
+                        })
+                    })
+                    .catch(function(error) {
+                        vm.loading = false;
+                        console.log(error);
+                        Swal.fire({
+                            title: 'Internal Error',
+                            error: true,
+                            icon: 'error',
+                            text: error.response.data.message,
+                        })
+                    });
+            },
         }
     })
 </script>

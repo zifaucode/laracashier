@@ -15,6 +15,7 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
+
         $category = ProductCategory::all();
         return view('admin.product-category.index', [
             'category' => $category,
@@ -35,6 +36,7 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         try {
+            $number = mt_rand(1000000000, 999999999);
             DB::beginTransaction();
             $newCategory = new ProductCategory();
             $newCategory->name = $request->category_name;
