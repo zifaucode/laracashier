@@ -41,9 +41,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            $mtRand = mt_rand(0000, 9999);
-            $date = Carbon::now()->format('d-m-Y');
-            $number = 'P-' . $mtRand . $date;
+            $mtRand = mt_rand(000000, 999999);
+            $date = Carbon::now()->format('dmY');
+            $number =  $mtRand . $date;
 
             DB::beginTransaction();
             $newProduct = new Product();

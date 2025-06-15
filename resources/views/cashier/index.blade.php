@@ -51,44 +51,18 @@ Dashboard
                             <br>
 
                             <div class="row">
-                                <div class="col-md-4 col-sm-6 col-12">
+
+                                <div class="col-md-4 col-sm-6 col-12" v-for="products in product">
                                     <div class="info-box">
-                                        <span class="info-box-icon bg-success"><img src="{{ asset('assets/img/ex-product/burger.png') }}"> </span>
+                                        <span class="info-box-icon bg-success"><img :src="`/file/product-image/`+ products.product_image"> </span>
 
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Burger Bandel</span>
-                                            <span class="info-box-number">Rp. 40.000</span>
+                                            <span class="info-box-text">@{{ products.name }}</span>
+                                            <span class="info-box-number">@{{ toCurrency(products.unit_price ?? 0) }}</span>
                                         </div>
-                                        <!-- /.info-box-content -->
                                     </div>
-                                    <!-- /.info-box -->
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-md-4 col-sm-6 col-12">
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-success"><img src="{{ asset('assets/img/ex-product/french-fries.png') }}"></span>
 
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Kentang Kentunk</span>
-                                            <span class="info-box-number">Rp. 15.000</span>
-                                        </div>
-                                        <!-- /.info-box-content -->
-                                    </div>
-                                    <!-- /.info-box -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-md-4 col-sm-6 col-12">
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-success"><img src="{{ asset('assets/img/ex-product/ramen.png') }}"></span>
-
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Ramen Mereun</span>
-                                            <span class="info-box-number">Rp. 28.000</span>
-                                        </div>
-                                        <!-- /.info-box-content -->
-                                    </div>
-                                    <!-- /.info-box -->
-                                </div>
 
                             </div>
 
@@ -208,13 +182,16 @@ Dashboard
 @section('pagescript')
 
 <script>
+    const product = <?php echo Illuminate\Support\Js::from($product) ?>;
     let app = new Vue({
         el: '#app',
         data: {
-
+            product,
         },
         methods: {
-
+            toCurrency: function(number) {
+                return new Intl.NumberFormat('De-de').format(number);
+            },
         }
     })
 </script>

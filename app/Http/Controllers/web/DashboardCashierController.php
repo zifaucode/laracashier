@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class DashboardCashierController extends Controller
@@ -12,7 +13,10 @@ class DashboardCashierController extends Controller
      */
     public function index()
     {
-        return view('cashier.index', []);
+        $product = Product::all();
+        return view('cashier.index', [
+            'product' => $product,
+        ]);
     }
 
     /**

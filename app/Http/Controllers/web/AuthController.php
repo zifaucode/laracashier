@@ -28,7 +28,7 @@ class AuthController extends Controller
             }
 
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/admin/dashboard');
         }
         FacadesSession::flash('error', 'Username atau password salah');
         return redirect()->route('login')->withInput();
